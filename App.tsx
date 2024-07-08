@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, SafeAreaView, StyleSheet, Image, Dimensions} from 'react-native';
+import MiniLogo from './src/components/MiniLogo';
 
-export default function App() {
+const window = Dimensions.get("window");
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.rootContainer}>
+      <View style={styles.header}>
+        <MiniLogo />
+      </View>
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
+  rootContainer: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+
+  header: {
+    flexDirection: "row",
+    paddingHorizontal: 30,
+    paddingTop: 24,
+    paddingBottom: 18,
+  },
+
+  blankSpace: {
+    flexGrow: 1,
+    flexShrink: 0,
+    flexBasis: 0
+  },
+
+  mainView: {
+    gap: 20
   },
 });
+
+export default App;
