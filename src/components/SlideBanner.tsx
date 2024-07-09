@@ -1,6 +1,12 @@
-import React, {useEffect, useState, useRef} from 'react';
-import { View, Image, StyleSheet } from "react-native"
+import React, { useState } from 'react';
+import { View, Image, StyleSheet, Dimensions, FlatList, ListRenderItem } from "react-native"
 import useInterval from '../hooks/useInterval';
+
+const root = Dimensions.get("window");
+
+interface BannerData {
+  source: NodeRequire;
+}
 
 const bannerData = [
   {
@@ -15,48 +21,61 @@ const bannerData = [
 ]
 
 export default function SlideBanner() {
-  let [bannerIdx, setBannerIdx] = useState(0);
-  let num = 0;
+  // const [slideIndex, setSlideIndex]
 
-  useInterval(() => {
-    setBannerIdx(
-      (bannerIdx == bannerData.length - 1) ? 0 : bannerIdx + 1
-    );
-  }, 5000);
+  // useInterval
+
+  const slides = bannerData.map((banner) => (
+    <View style={styles.eventBannerContainer}>
+      <Image
+        source={banner.source}
+        style={styles.eventBannerImage}
+      />
+    </View>
+  ))
 
   return (
-    <View>
-      <View style={styles.eventBannerContainer}>
-        <Image
-          source={bannerData[bannerIdx].source}
-          style={styles.eventBannerImage}
-        />
-      </View>
-      <View style={styles.dots}>
-        {
-          bannerData.map((banner, i: number) => (
-            <View style={{
-              width: 12,
-              height: 12,
-              borderRadius: 6,
-              backgroundColor: i === bannerIdx ? "#84CA8B" : "#F0F0F0"
-            }} />
-          ))
-        }
-      </View>
-    </View>
+    <FlatList
+      style={styles.root}
+      data={bannerData}
+      renderItem={({ item }) => (
+        <View style={styles.eventBannerContainer}>
+          <Image
+            source={item.source}
+            style={styles.eventBannerImage}
+          />
+        </View>
+      )}
+      ItemSeparatorComponent={() => (
+        <View style={{
+          width: 20,
+        }} />
+      )}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+    />
   )
 }
 
 const styles = StyleSheet.create({
+  root: {
+    display: "flex",
+    flexDirection: "row",
+    overflow: "visible",
+    gap: 20,
+    rowGap: 20,
+
+    marginTop: 16,
+    marginHorizontal: 32,
+  },
+
   eventBannerContainer: {
-    height: 188,
-    alignItems: "center",
+    // alignItems: "center",
   },
 
   eventBannerImage: {
-    height: 188,
-    width: 352,
+    width: 280,
+    height: 240,
     borderRadius: 16,
   },
 

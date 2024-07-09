@@ -5,7 +5,7 @@ export default function MiniLogo() {
     <View style={styles.logoImageContainer}>
       <Image
         style={styles.logoImage}
-        source={require("./src/assets/img/combination-logo-4x.png")}
+        source={require("../assets/img/combination-logo-4x.png")}
       />
     </View>
   )
