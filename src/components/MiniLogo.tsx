@@ -14,7 +14,7 @@ export default function MiniLogo() {
 const styles = StyleSheet.create({
   logoImageContainer: {
     height: 22,
-    width: 88
+    width: 100
   },
 
   logoImage: {

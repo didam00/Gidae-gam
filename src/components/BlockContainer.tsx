@@ -1,23 +1,31 @@
-import { View, Text, Image, StyleSheet, ImageSourcePropType } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 import { MAIN_COLOR } from "../styles/variables";
+import Emoji from "./Emoji";
 
 interface BlockContainerParameter {
   title?: string;
-  emoji?: ImageSourcePropType;
+  emoji?: string;
   children?: React.ReactNode;
+  row?: boolean;
 }
 
 const BlockContainer = ({
   title,
   emoji,
-  children
+  children,
+  row = false
 }: BlockContainerParameter) => {
   return (
-    <View >
-      <View style={styles.title}>
-        <Text style={styles.titleText}>{title}</Text>
-        <Image style={styles.emoji} source={emoji} />
-      </View>
+    <View style={{
+      flexDirection: row ? "row" : "column",
+      justifyContent: row ? "space-between" : "flex-start"
+    }}>
+      { title &&
+        <View style={styles.title}>
+          <Text style={styles.titleText}>{title}</Text>
+          {emoji && <Emoji name={emoji} />}
+        </View>
+      }
       {children}
     </View>
   )
@@ -34,13 +42,8 @@ const styles = StyleSheet.create({
     color: MAIN_COLOR,
     fontWeight: "bold",
     // fontFamily: "Bold",
+    marginRight: 4
   },
-
-  emoji: {
-    height: 24,
-    width: 24,
-    marginLeft: 4,
-  }
 });
 
 export default BlockContainer;

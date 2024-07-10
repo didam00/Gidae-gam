@@ -11,6 +11,12 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   header: {
+    // position: "absolute",
+    left: 0,
+    top: 0,
+
+    backgroundColor: "white",
+
     flexDirection: "row",
 
     paddingHorizontal: 30,
